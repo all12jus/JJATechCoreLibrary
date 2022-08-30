@@ -7,9 +7,13 @@
 
 import Foundation
 
+public class NetworkSettings {
+    public static var baseURLString: String = "https:/localhost:9080/"
+}
+
 @available(iOS 15.0, *)
 public class GenericNetworkManager<T: FormEditable> {
-    let baseURLSting: String = "https://bb60e4e8ea0a.ngrok.io/"
+//    static var baseURLSting: String = "https://bb60e4e8ea0a.ngrok.io/"
     let decoder = JSONDecoder()
     let encoder = JSONEncoder()
     
@@ -38,7 +42,7 @@ public class GenericNetworkManager<T: FormEditable> {
     }
     
     public func getAll() async throws -> [T] {
-        let urlString = "\(baseURLSting)\(T.getEndpoint())"
+        let urlString = "\(NetworkSettings.baseURLString)\(T.getEndpoint())"
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
 //        print(url.absoluteString)
         
@@ -66,7 +70,7 @@ public class GenericNetworkManager<T: FormEditable> {
     
     // POST vehicle
     public func post(item: T) async throws {
-        let urlString = "\(baseURLSting)\(T.getEndpoint())"
+        let urlString = "\(NetworkSettings.baseURLString)\(T.getEndpoint())"
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
 //        print(url.absoluteString)
         
@@ -89,7 +93,7 @@ public class GenericNetworkManager<T: FormEditable> {
     // PUT vehicle
     public func put(item: T) async throws {
         guard let id = item.getDatabaseID() else { throw NetworkError.invalidID }
-        let urlString = "\(baseURLSting)\(T.getEndpoint())/\(id)"
+        let urlString = "\(NetworkSettings.baseURLString)\(T.getEndpoint())/\(id)"
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
 //        print(url.absoluteString)
         
@@ -133,7 +137,7 @@ public class GenericNetworkManager<T: FormEditable> {
     
     public func delete(item: T) async throws {
         guard let id = item.getDatabaseID() else { throw NetworkError.invalidID }
-        let urlString = "\(baseURLSting)\(T.getEndpoint())/\(id)"
+        let urlString = "\(NetworkSettings.baseURLString)\(T.getEndpoint())/\(id)"
         guard let url = URL(string: urlString) else { throw NetworkError.invalidURL }
         print(url.absoluteString)
         
