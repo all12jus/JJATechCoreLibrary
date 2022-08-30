@@ -69,6 +69,7 @@ public struct GenericListView<T: FormEditable> : View {
     @State var showEditView = false
     @State var selectedItem: T? = nil
     @State var editMode: Bool = false
+    @State var loading: Bool = true
     
     let networkManager = GenericNetworkManager<T>()
     
@@ -90,7 +91,7 @@ public struct GenericListView<T: FormEditable> : View {
     
     public var body: some View {
         VStack {
-            if items.count > 0 {
+            if !loading && items.count > 0 {
                 List {
                     ForEach(0..<items.count, id: \.self) { index in
                         NavigationLink(destination:
@@ -103,9 +104,13 @@ public struct GenericListView<T: FormEditable> : View {
                 }
                 .refreshable {
                     Task.init {
+//                        loading = true
                         items = try await networkManager.getAll()
                     }
                 }
+            }
+            else if loading {
+                Text("Loading...").font(.title2)
             }
             else {
                 VStack (spacing: 8) {
@@ -121,9 +126,12 @@ public struct GenericListView<T: FormEditable> : View {
         .onAppear {
             Task.init {
                 do {
+                    loading = true
                     items = try await networkManager.getAll()
+                    loading = false
                 } catch {
                     print(error)
+                    loading = false
                 }
             }
         }
@@ -160,9 +168,12 @@ public struct GenericListView<T: FormEditable> : View {
             if newValue == false {
                 Task.init {
                     do {
+                        loading = true
                         items = try await networkManager.getAll()
+                        loading = false
                     } catch {
                         print(error)
+                        loading = false
                     }
                 }
             }
