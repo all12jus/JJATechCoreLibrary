@@ -110,7 +110,10 @@ public struct GenericListView<T: FormEditable> : View {
                 }
             }
             else if loading {
-                Text("Loading...").font(.title2)
+//                Text("Loading...").font(.title2)
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .teal))
+                    .scaleEffect(2.0)
             }
             else {
                 VStack (spacing: 8) {
