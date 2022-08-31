@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 @available(iOS 14.0, *)
-struct NavigationBarModifier: ViewModifier {
+public struct NavigationBarModifier: ViewModifier {
     
     var backgroundColor: UIColor?
     var titleColor: UIColor?
@@ -27,7 +27,7 @@ struct NavigationBarModifier: ViewModifier {
         UINavigationBar.appearance().scrollEdgeAppearance = coloredAppearance
     }
     
-    func body(content: Content) -> some View {
+    public func body(content: Content) -> some View {
         ZStack{
             content
             VStack {
@@ -45,7 +45,7 @@ struct NavigationBarModifier: ViewModifier {
 
 // Extending View to get Screen Rect...
 @available(iOS 14.0, *)
-extension View {
+public extension View {
     func getRect() -> CGRect {
         UIScreen.main.bounds
     }
