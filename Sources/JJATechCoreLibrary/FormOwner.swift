@@ -21,7 +21,7 @@ public enum Owner: Hashable, Identifiable, CaseIterable, Codable {
 }
 
 @available(iOS 15.0, *)
-public protocol FormEditable: Codable, Identifiable {
+public protocol FormEditable: Codable, Identifiable, NetworkFetchable {
     static func getTableViewCell(item: Self) -> AnyView
     static func getSingularName() -> String
     static func getPluralName() -> String

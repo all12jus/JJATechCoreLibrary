@@ -12,7 +12,15 @@ public class NetworkSettings {
 }
 
 @available(iOS 15.0, *)
-public class GenericNetworkManager<T: FormEditable> {
+public protocol NetworkFetchable: Codable, Identifiable {
+    static func getEndpoint() -> String
+    func getDatabaseID() -> String?
+    func isNew() -> Bool
+}
+
+
+@available(iOS 15.0, *)
+public class GenericNetworkManager<T: NetworkFetchable> {
 //    static var baseURLSting: String = "https://bb60e4e8ea0a.ngrok.io/"
     let decoder = JSONDecoder()
     let encoder = JSONEncoder()
