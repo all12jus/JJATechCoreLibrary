@@ -70,6 +70,7 @@ public struct GenericListView<T: FormEditable> : View {
     @State var selectedItem: T? = nil
     @State var editMode: Bool = false
     @State var loading: Bool = true
+//    @State var groupedItems: [String: [T]] = [:]
     
     let networkManager = GenericNetworkManager<T>()
     
@@ -182,5 +183,8 @@ public struct GenericListView<T: FormEditable> : View {
             }
         }
         .navigationBarTitle("\(T.getPluralName())")
+//        .onChange(of: items) { newValue in
+//            // loop over them and parse them into grouped items by household id.
+//        }
     }
 }
