@@ -43,23 +43,25 @@ public class FormViewModel<T:FormEditable>: ObservableObject {
         }
     }
     public var ownerOptions: [Owner] = Owner.allCases
-    let networkManager = GenericNetworkManager<T>()
+    public let networkManager = GenericNetworkManager<T>()
     
     public init(item: T) {
         self.item = item
     }
 
-    public func save() {
-        
-        print("save")
-        Task.init {
-            do {
-                try await networkManager.save(item)
-            } catch {
-                print(error)
-            }
-        }
-    }
+//    public func save() -> Bool {
+//
+//        print("save")
+//        Task.init { () - in
+//            do {
+//                try await networkManager.save(item)
+//                return true
+//            } catch {
+//                print(error)
+//                return false
+//            }
+//        }
+//    }
 }
 
 @available(iOS 15.0, *)
